@@ -1,0 +1,64 @@
+* {
+    box-sizing: border-box;
+    padding: 0px;
+    margin: 0px;
+}
+
+.navbar {
+    background-color: seagreen;
+    display: flex;
+    flex-wrap: wrap;
+    color: white;
+    padding: 1% 3%;
+}
+
+.navbar h2 {
+    display: inline-block;
+    width: 20%;
+}
+
+.nav-items {
+    float: right;
+    list-style: none;
+    text-align: end;
+    width: 80%;
+}
+
+.nav-item {
+    display: inline-block;
+    padding: 0 40px;
+}
+
+.coding-quiz-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 80vh;
+}
+
+.quiz-card {
+    border: 2px solid darkgreen;
+    padding: 3% 5%;
+    border-radius: 5px;
+    background-color: rgb(255, 255, 241);
+}
+
+.welcome-content {
+    text-align: center;
+}
+
+.welcome-content button {
+    background-color: powderblue;
+    padding: 1%;
+    border-radius: 5px;
+    border-color: grey;
+}
+
+.quiz-header-section h3 {
+    font-size: 35px;
+}
+
+.quiz-timer {
+    float: right;
+    /* display: inline-block; */
+}
