@@ -62,3 +62,12 @@
     float: right;
     /* display: inline-block; */
 }
+
+.hidden {
+    display: none;
+}
+
+.answer-list {
+    list-style: lower-alpha;
+    padding-left: 5%;
+}

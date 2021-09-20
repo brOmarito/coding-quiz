@@ -1,4 +1,4 @@
-const quizQuestions = [{
+var quizQuestions = [{
         "question": "Which of the following is not a JavaScript data type?",
         "answers": [{
                 "ansVal": "Decimal",
@@ -144,22 +144,73 @@ const quizQuestions = [{
     }
 ];
 var timer;
-var maxTime = 120;
+var timerVal = 120;
+var questionCounter = 0;
 
 var timerEl = document.querySelector(".quiz-timer");
-var quizQuestion = document.querySelector(".quiz-question");
-var quizAnswers = document.querySelector(".quiz-answers");
+var quizQuestionEl = document.querySelector(".quiz-question");
+var quizAnswersEl = document.querySelector(".quiz-answers");
 var getStartedButton = document.querySelector(".quiz-content button");
+var quizCardEl = document.querySelector(".quiz-card");
 
-timerEl.textContent = maxTime;
+timerEl.textContent = timerVal;
+console.log(quizQuestions);
 
 getStartedButton.addEventListener("click", function() {
-    timerEl.textContent = maxTime;
+    timerEl.textContent = timerVal;
+    quizQuestions = shuffleArray(quizQuestions);
+    displayWelcomeFormat(false);
+    switchCard();
     timer = setInterval(function() {
-        timerEl.textContent = timerEl.textContent-1;
-        if (timerEl.textContent === 0) {
+        timerVal--;
+        timerEl.textContent = timerVal;
+        if (timerVal === 0) {
             clearInterval(timer);
         }
     }, 1000)
 });
 
+function displayWelcomeFormat(shouldDisplay) {
+    if (shouldDisplay) {
+        quizCardEl.classList.add("welcome-content");
+        getStartedButton.classList.remove("hidden");
+    } else {
+        console.log(quizCardEl.classList);
+        quizCardEl.classList.remove("welcome-content");
+        getStartedButton.classList.add("hidden");
+        console.log(quizCardEl.classList);
+    }
+}
+
+function switchCard() {
+    var currQuest = quizQuestions[questionCounter];
+    quizQuestionEl.innerHTML = currQuest.question;
+    displayAnswers(currQuest.answers);
+}
+
+function displayAnswers(answers) {
+    answers = shuffleArray(answers);
+    var answerHtmlString = '<ul class="answer-list">'
+    answers.forEach(currAnswer => {
+        var listItemString = "<li>" + currAnswer.ansVal + "</li>";
+        answerHtmlString += listItemString;
+    });
+    answerHtmlString += "</ul>";
+    quizAnswersEl.innerHTML = answerHtmlString;
+}
+
+// function displayHighScore() {
+//     quizQuestion.
+// }
+
+function shuffleArray(array) {
+    var cntr = array.length;
+    while (cntr > 0) {
+        var index = Math.floor(Math.random() * cntr);
+        cntr--;
+        var temp = array[cntr];
+        array[cntr] = array[index];
+        array[index] = temp;
+    }
+    return array;
+}
