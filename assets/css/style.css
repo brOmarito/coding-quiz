@@ -71,3 +71,21 @@
     list-style: lower-alpha;
     padding-left: 5%;
 }
+
+.answer-button {
+    padding: 2px;
+    background-color:lavender;
+    border-radius: 5px;
+    border: 1px solid darkgreen;
+    min-width: 20%;
+    margin: 1% 0;
+}
+
+.answer-button:hover {
+    box-shadow: 2px 2px 10px 1px grey;
+}
+
+.ans-result p {
+    font-style: italic;
+    color: grey;
+}

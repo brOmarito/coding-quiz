@@ -152,16 +152,17 @@ var quizQuestionEl = document.querySelector(".quiz-question");
 var quizAnswersEl = document.querySelector(".quiz-answers");
 var getStartedButton = document.querySelector(".quiz-content button");
 var quizCardEl = document.querySelector(".quiz-card");
+var welcomeTextEl = document.querySelector(".quiz-welcome-text");
 
 timerEl.textContent = timerVal;
 console.log(quizQuestions);
 
-getStartedButton.addEventListener("click", function() {
+getStartedButton.addEventListener("click", function () {
     timerEl.textContent = timerVal;
     quizQuestions = shuffleArray(quizQuestions);
     displayWelcomeFormat(false);
     switchCard();
-    timer = setInterval(function() {
+    timer = setInterval(function () {
         timerVal--;
         timerEl.textContent = timerVal;
         if (timerVal === 0) {
@@ -175,10 +176,9 @@ function displayWelcomeFormat(shouldDisplay) {
         quizCardEl.classList.add("welcome-content");
         getStartedButton.classList.remove("hidden");
     } else {
-        console.log(quizCardEl.classList);
         quizCardEl.classList.remove("welcome-content");
         getStartedButton.classList.add("hidden");
-        console.log(quizCardEl.classList);
+        welcomeTextEl.classList.add("hidden");
     }
 }
 
@@ -190,13 +190,46 @@ function switchCard() {
 
 function displayAnswers(answers) {
     answers = shuffleArray(answers);
-    var answerHtmlString = '<ul class="answer-list">'
-    answers.forEach(currAnswer => {
-        var listItemString = "<li>" + currAnswer.ansVal + "</li>";
-        answerHtmlString += listItemString;
+    var displayedAnsw = document.querySelector(".answer-list")
+    var answerlist = document.createElement("ul");
+    answerlist.className = "answer-list";
+    // var answerHtmlString = '<ul class="answer-list">'
+    answers.forEach((currAnswer, index) => {
+        var answId = 'answ' + index;
+        var answItem = document.createElement("li");
+        answItem.id = answId;
+        answItem.className = "answer-item";
+        var answButton = document.createElement("button");
+        answButton.className = "answer-button";
+        answButton.textContent = currAnswer.ansVal;
+        answItem.appendChild(answButton);
+        answerlist.appendChild(answItem);
+        displayedAnsw.addEventListener("click", addClickToAnswer(event, currAnswer.correctAns))
     });
-    answerHtmlString += "</ul>";
-    quizAnswersEl.innerHTML = answerHtmlString;
+    displayedAnsw.innerHTML = answerlist.innerHTML;
+}
+
+function addClickToAnswer(event, correctAns) {
+    event.preventDefault();
+    event.stopPropagation();
+    var element = event.target;
+    console.log("Registered Click");
+    if (element.matches(".answer-item")) {
+        console.log("Registered Click");
+        var resultEl = document.querySelector(".ans-result p");
+        if (correctAns) {
+            resultEl.textContent = "Correct!";
+        } else {
+            resultEl.textContent = "Wrong!";
+        }
+        resultEl.classList.remove("hidden");
+        var resultTimer = setInterval(function () {
+            if (resultTimer === 2) {
+                resultEl.classList.add("hidden");
+                clearInterval(resultTimer);
+            }
+        }, 1000)
+    }
 }
 
 // function displayHighScore() {
