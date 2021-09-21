@@ -28,15 +28,23 @@
                 <h4 class="quiz-question">Welcome to brOmarito's coding quiz!</h4>
                 <br>
                 <p class="quiz-welcome-text">
-                    You will have 2 minutes to complete the quiz. Your scores will be stored and presented
-                    in the High Score page!
+                    You will have 2 minutes to complete the quiz.
                     <br>
+                    Your scores will be stored and presented
+                    in the High Score page!
+                    <br><br>
                     When you are ready, hit the start button!
                 </p>
-                <ul class="answer-list"></ul>
+                <div class="answer-section">
+                    <ul class="answer-list"></ul>
+                    <form class="submit-score hidden">
+                        <label>Name: <input class="name-input" type="text" name="name" placeholder="Your Name Here" /></label>
+                        <input class="form-submit" type="submit" />
+                    </form>
+                </div>
                 <br><br><br>
                 <div class="sub-content">
-                    <button>Get Started!</button>
+                    <button class="get-started-button">Get Started!</button>
                     <div class="ans-result hidden">
                         <hr>
                         <p>Answer Result</p>
