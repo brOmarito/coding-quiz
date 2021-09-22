@@ -67,6 +67,7 @@ var timer;
 var timerVal;
 var questionCounter = 0;
 var score;
+var resultTimer;
 
 var timerEl = document.querySelector(".quiz-timer");
 var quizQuestionEl = document.querySelector(".quiz-question");
@@ -77,17 +78,20 @@ var welcomeTextEl = document.querySelector(".quiz-welcome-text");
 var displayedAnsw = document.querySelector(".answer-list")
 var answerSection = document.querySelector(".answer-section")
 var resultEl = document.querySelector(".ans-result");
-var scoreForm = document.querySelector(".submit-score");
+var scoreForm = document.querySelector("#submit-score");
 
 timerEl.textContent = timerVal;
 
 getStartedButton.addEventListener("click", function (event) {
+    console.log('started');
     event.stopPropagation();
     event.preventDefault();
     timerVal = 120;
     score = 0;
+    questionCounter = 0
     timerEl.textContent = timerVal;
     displayWelcomeFormat(false);
+    timerEl.classList.remove('hidden');
     quizQuestions = shuffleArray(quizQuestions);
     switchCard();
     timer = setInterval(function () {
@@ -109,24 +113,60 @@ displayedAnsw.addEventListener("click", function (event) {
     }
 });
 
-scoreForm.addEventListener("submit", function(event) {
+function acceptHighScoreName(event) {
     event.stopPropagation();
     event.preventDefault();
-    console.log("Submitted!");
-    quizQuestionEl.textContent = "Thank you!"
-});
+    handleHighScores(scoreForm.elements["name-field"].value, score)
+}
+
+function handleHighScores(name, score) {
+    var scoreRecord = {
+        name: name,
+        score: score
+    }
+    var highScores = JSON.parse(localStorage.getItem("HighScores"));
+    if (highScores) {
+        highScores.push(scoreRecord);
+    } else {
+        highScores = [];
+        highScores.push(scoreRecord);
+    }
+    localStorage.setItem("HighScores", JSON.stringify(highScores));
+    displayHighScores(highScores);
+}
+
+function displayHighScores(highScoresArray) {
+    var sortedArray = highScoresArray.sort((a, b) => b.score - a.score);
+    if (sortedArray.length > 5) {
+        sortedArray = sortedArray.splice(0, 5);
+    }
+    var scorelist = document.createElement("ul");
+    sortedArray.forEach(scoreRecord => {
+        var recordEl = document.createElement("li");
+        recordEl.textContent = scoreRecord.name + "  " + scoreRecord.score;
+        scorelist.appendChild(recordEl);
+    });
+    displayedAnsw.innerHTML = scorelist.innerHTML;
+    quizQuestionEl.textContent = "High Scores - Just the Top 5!"
+    displayedAnsw.classList.remove("hidden");
+    scoreForm.classList.add('hidden');
+    getStartedButton.classList.remove("hidden");
+    getStartedButton.innerHTML = "Try Again!";
+}
 
 function checkCorrectAnsw(answText) {
     var currAnswers = quizQuestions[questionCounter].answers;
     var correctAns = currAnswers[answText];
     if (correctAns) {
         resultEl.querySelector('p').textContent = "Correct!";
+        score += 10;
     } else {
         resultEl.querySelector('p').textContent = "Wrong!";
     }
     resultEl.classList.remove("hidden");
+    clearInterval(resultTimer);
     var secPassed = 0;
-    var resultTimer = setInterval(function () {
+    resultTimer = setInterval(function () {
         if (secPassed === 5) {
             resultEl.classList.add("hidden");
             clearInterval(resultTimer);
@@ -142,12 +182,18 @@ function checkCorrectAnsw(answText) {
 }
 
 function showQuizEnd(timedOut) {
+    var endMessage;
     if (timedOut) {
-        quizQuestionEl.textContent = "Oh man, you ran out of time!";
+        endMessage = "Oh man, you ran out of time!";
     } else {
+        endMessage = "You finished!"
         clearInterval(timer);
-        quizQuestionEl.textContent = "Great job, you finished!";
     }
+    quizQuestionEl.innerHTML = endMessage + "<br>" + 
+                                "Please submit your name<br>" +
+                                "Your score is: " + score + "<br><br>" +
+                                "Maybe you made the high score board!<br>"
+                                "(You have to be in the top 5!)";
     timerEl.classList.add('hidden')
     scoreForm.classList.remove('hidden');
     displayedAnsw.classList.add('hidden');
@@ -172,8 +218,7 @@ function switchCard() {
 
 function displayAnswers(answers) {
     answers = shuffleArray(answers);
-    var answerlist = document.createElement("ul");
-    answerlist.className = "answer-list";
+    var answerlist = document.createElement("ol");
     // var answerHtmlString = '<ul class="answer-list">'
     Object.keys(answers).forEach((key, index) => {
         var answId = 'answ' + index;
@@ -185,7 +230,6 @@ function displayAnswers(answers) {
         answButton.textContent = key;
         answItem.appendChild(answButton);
         answerlist.appendChild(answItem);
-        console.log(answButton);
     });
     displayedAnsw.innerHTML = answerlist.innerHTML;
 }

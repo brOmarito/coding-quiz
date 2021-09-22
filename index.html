@@ -36,9 +36,9 @@
                     When you are ready, hit the start button!
                 </p>
                 <div class="answer-section">
-                    <ul class="answer-list"></ul>
-                    <form class="submit-score hidden">
-                        <label>Name: <input class="name-input" type="text" name="name" placeholder="Your Name Here" /></label>
+                    <ol class="answer-list"></ol>
+                    <form id="submit-score" class="hidden" onsubmit="acceptHighScoreName(event)">
+                        <label>Name: <input id="name-field" class="name-input" type="text" name="name" placeholder="Your Name Here" /></label>
                         <input class="form-submit" type="submit" />
                     </form>
                 </div>
