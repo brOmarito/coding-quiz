@@ -13,9 +13,8 @@
     <header class="navbar">
         <h2>brOmarito's Coding Quiz</h2>
         <ul class="nav-items">
-            <li class="nav-item">Quiz</li>
-            <li class="nav-item">High Scores</li>
-            <li class="nav-item">Contact Me</li>
+            <li class="nav-item"><a href="">Home</a></li>
+            <li class="nav-item"><a id="high-score-nav" href="#">High Scores</a></li>
         </ul>
     </header>
     <div class="coding-quiz-section">
@@ -27,18 +26,32 @@
             <div class="quiz-content">
                 <h4 class="quiz-question">Welcome to brOmarito's coding quiz!</h4>
                 <br>
-                <p class="quiz-welcome-text">
-                    You will have 2 minutes to complete the quiz.
+                <div class="quiz-welcome-text">
+                    <p>
+                        You will have 2 minutes to complete the quiz.
+                        <br>
+                        Your scores will be stored and presented
+                        in the High Score page!
+                    </p>
                     <br>
-                    Your scores will be stored and presented
-                    in the High Score page!
+                    <p>Rules:</p>
+                    <ol>
+                        <li>You have 120 seconds to finish the quiz</li>
+                        <li>You get 10 points for each right answer</li>
+                        <li>You lose 10 seconds when you answer a question incorrectly</li>
+                        <li>At the end, your remaining time gets added to you score</li>
+                        <li>The top 5 scores of your local storage get saved</li>
+                    </ol>
                     <br><br>
-                    When you are ready, hit the start button!
-                </p>
+                    <p>
+                        When you are ready, hit the start button!
+                    </p>
+                </div>
                 <div class="answer-section">
                     <ol class="answer-list"></ol>
                     <form id="submit-score" class="hidden" onsubmit="acceptHighScoreName(event)">
-                        <label>Name: <input id="name-field" class="name-input" type="text" name="name" placeholder="Your Name Here" /></label>
+                        <label>Name: <input id="name-field" class="name-input" type="text" name="name"
+                                placeholder="Your Name Here" /></label>
                         <input class="form-submit" type="submit" />
                     </form>
                 </div>

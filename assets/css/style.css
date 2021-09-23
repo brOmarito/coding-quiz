@@ -33,14 +33,14 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 80vh;
+    max-height: 100vh;
+    padding-top: 100px;
 }
 
 .quiz-card {
-    border: 2px solid darkgreen;
     padding: 3% 5%;
     border-radius: 5px;
-    background-color: rgb(255, 255, 241);
+    font-size: 20px;
 }
 
 .welcome-content {
@@ -52,6 +52,12 @@
     padding: 1%;
     border-radius: 5px;
     border-color: grey;
+}
+
+.quiz-welcome-text ol {
+    text-align: left;
+    padding-top: 5px;
+    padding-left: 70px;
 }
 
 .quiz-header-section h3 {
@@ -103,7 +109,7 @@
 }
 
 .name-input {
-    width: 79%;
+    width: 86%;
 }
 
 .form-submit {
@@ -111,4 +117,16 @@
     margin-right: 4%;
     padding: 2px;
     margin-top: 2px;
+}
+
+.navbar a {
+    text-decoration: none;
+}
+
+.nav-items a:visited {
+    color: white;
+}
+
+.quiz-question {
+    font-size: 35px;
 }

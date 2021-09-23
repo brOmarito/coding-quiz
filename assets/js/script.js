@@ -79,6 +79,7 @@ var displayedAnsw = document.querySelector(".answer-list")
 var answerSection = document.querySelector(".answer-section")
 var resultEl = document.querySelector(".ans-result");
 var scoreForm = document.querySelector("#submit-score");
+var navHighScore = document.querySelector("#high-score-nav");
 
 timerEl.textContent = timerVal;
 
@@ -111,6 +112,12 @@ displayedAnsw.addEventListener("click", function (event) {
     if (element.matches(".answer-button")) {
         checkCorrectAnsw(element.textContent);
     }
+});
+
+navHighScore.addEventListener("click", function() {
+    var highScores = JSON.parse(localStorage.getItem("HighScores"));
+    welcomeTextEl.classList.add("hidden");
+    displayHighScores(highScores);
 });
 
 function acceptHighScoreName(event) {
@@ -161,6 +168,7 @@ function checkCorrectAnsw(answText) {
         resultEl.querySelector('p').textContent = "Correct!";
         score += 10;
     } else {
+        timerVal -= 10;
         resultEl.querySelector('p').textContent = "Wrong!";
     }
     resultEl.classList.remove("hidden");
@@ -187,6 +195,7 @@ function showQuizEnd(timedOut) {
         endMessage = "Oh man, you ran out of time!";
     } else {
         endMessage = "You finished!"
+        score += timerVal;
         clearInterval(timer);
     }
     quizQuestionEl.innerHTML = endMessage + "<br>" + 
