@@ -22,3 +22,10 @@ I got a lot of experience working with adding event listeners. THat would probab
 ## Credits/Acknowledgements
 * Found a shuffle method for an array here: https://www.w3resource.com/javascript-exercises/javascript-array-exercise-17.php
 * Sort array of objects: https://stackoverflow.com/questions/54623130/javascript-sort-an-array-of-objects-by-a-numeric-property-in-each-object/54623139
+
+## Screenshots/Links
+Deployed Link: https://bromarito.github.io/coding-quiz/
+
+Screenshots:
+![Home page screenshot](/assets/images/home-screen.PNG)
+![Question screenshot](/assets/images/question-screen.PNG)
